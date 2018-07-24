@@ -1,0 +1,3 @@
+[DESIGN]
+max-parents=15
+max-line-length=200
