@@ -41,17 +41,18 @@ INSTALLED_APPS = [
     'django_filters',
     'ap.apps.APConfig',
     'group.apps.GroupConfig',
-    'mytest.apps.MytestConfig'
+    'sysuser.apps.SysuserConfig'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sysuser.views.CheckAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'bicky_backend.urls'
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dbac',
         'USER': 'root',
-        'PASSWORD': 'bdinside',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -134,3 +135,23 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 30,
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+
+"""
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}
+"""

@@ -17,7 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 
+
+"""
+url(r'^', include('ap.urls')),
+    url(r'^', include('mytest.urls')),
+"""
 urlpatterns = [
-    url(r'^', include('ap.urls')),
-    url(r'^', include('mytest.urls'))
+    path('', include('sysuser.urls')),
+    path('', include('ap.urls')),
+    path('', include('notice.urls')),
 ]
