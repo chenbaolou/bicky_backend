@@ -3,6 +3,7 @@ AP类型和AP数据模型
 """
 from django.db import models
 
+
 class APType(models.Model):
     """
     AP类型数据模型
@@ -21,6 +22,7 @@ class APType(models.Model):
     class Meta:
         managed = False
         db_table = 'tb_ap_type'
+
 
 class AP(models.Model):
     """

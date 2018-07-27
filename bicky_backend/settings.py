@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'sysuser.views.CheckAuthenticationMiddleware',
+    'sysuser.views.check_authentication_middleware',
 ]
 
 ROOT_URLCONF = 'bicky_backend.urls'

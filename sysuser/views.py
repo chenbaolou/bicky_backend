@@ -1,18 +1,19 @@
-from django.shortcuts import render
 from django.http import (HttpResponse, JsonResponse, HttpResponseForbidden)
-from django.contrib.auth import update_session_auth_hash, authenticate, login, logout as djlogout
+from django.contrib.auth import authenticate, login, logout as djlogout
 import json
+
 
 class HttpResponseUnauthorized(HttpResponse):
     status_code = 401
 
-def CheckAuthenticationMiddleware(get_response):
+
+def check_authentication_middleware(get_response):
     # One-time configuration and initialization.
 
     def middleware(request):
 
-        #ajax session expired
-        if request.user.is_authenticated == False:
+        # ajax session expired
+        if request.user.is_authenticated is False:
             if request.is_ajax():
                 return HttpResponseUnauthorized()
             else:
@@ -31,15 +32,15 @@ def CheckAuthenticationMiddleware(get_response):
 
     return middleware
 
+
 def loginauth(request):
-    print(request.body)
     req = json.loads(request.body)
-    type = req.get('type')
+    login_type = req.get('type')
     user = authenticate(username=req.get('userName'), password=req.get('password'))
 
     res = {
         'status': 'ok',
-        'type': type,
+        'type': login_type,
         'currentAuthority': 'admin'
     }
     
@@ -55,15 +56,17 @@ def loginauth(request):
     
     return JsonResponse(res)
 
-def currentUser(request):
+
+def current_user(request):
     user = request.user
-    res = {}
+    res = dict()
     res['name'] = user.username
     res['avatar'] = 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
     res['userid'] = user.id
     res['notifyCount'] = 12
     return JsonResponse(res)
 
+
 def logout(request):
-	djlogout(request)
-	return JsonResponse({'success':'yes'})
+    djlogout(request)
+    return JsonResponse({'success':'yes'})

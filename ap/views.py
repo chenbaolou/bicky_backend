@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from ap.serializers import APTypeSerializer, APSerializer
 from ap.models import APType, AP
 
+
 class APTypeList(generics.ListAPIView):
     """
     AP设备类型列表视图
@@ -15,6 +16,7 @@ class APTypeList(generics.ListAPIView):
     queryset = APType.objects.all()
     pagination_class = None
     serializer_class = APTypeSerializer
+
 
 class APList(generics.ListCreateAPIView):
     """
@@ -24,8 +26,10 @@ class APList(generics.ListCreateAPIView):
     serializer_class = APSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('apname', 'basemac',)
+
     def perform_create(self, serializer):
         serializer.save(apType=APType.objects.get(apType=self.request.data.get('apType')))
+
 
 class APDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -41,6 +45,7 @@ class APDetail(generics.RetrieveUpdateDestroyAPIView):
         else:
             serializer.save(apType=APType.objects.get(apType=ap_type))
 
+
 def check_ap_unique(request):
     """
     检查AP名称和MAC地址是否存在重复
@@ -50,12 +55,13 @@ def check_ap_unique(request):
     apname = request.GET.get('apname', default=None)
     basemac = request.GET.get('basemac', default=None)
     kwargs = {}
-    if apname != None:
+    if apname is not None:
         kwargs['apname'] = apname
-    if basemac != None:
+    if basemac is not None:
         kwargs['basemac'] = basemac
     count = AP.objects.exclude(apIndex=ap_index).filter(**kwargs).count()
     return JsonResponse({"count": count})
+
 
 def batch(request):
     """
@@ -63,7 +69,7 @@ def batch(request):
     1.批量删除
     """
     ids = json.loads(request.body).get('delete')
-    if ids != None:
+    if ids is not None:
         ids = ids.split(",")
     affected_rows = AP.objects.filter(apIndex__in=ids).delete()[0]
     return JsonResponse({"affectedRows": affected_rows})
