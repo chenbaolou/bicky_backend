@@ -20,13 +20,9 @@ def check_authentication_middleware(get_response):
                 pass
         else:
             pass
+        setattr(request, '_dont_enforce_csrf_checks', True)
 
         response = get_response(request)
-
-        if response.status_code == 403:
-            return HttpResponseForbidden()
-        else:
-            return response
 
         return response
 

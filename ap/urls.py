@@ -10,4 +10,6 @@ urlpatterns = [
     re_path(r'^ap/(?P<pk>[0-9]+)/$', views.APDetail.as_view()),
     path('ap/checkUnique/', views.check_ap_unique),
     path('ap/batch/', views.batch),
+    path('ap/batchImportAP/', views.batch_import_ap),
+    path('ap/export/', views.export_ap)
 ]

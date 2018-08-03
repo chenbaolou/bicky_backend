@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Group(models.Model):
     groupIndex = models.AutoField(db_column='groupIndex', primary_key=True)
     groupName = models.CharField(db_column='groupName', unique=True, max_length=50)
