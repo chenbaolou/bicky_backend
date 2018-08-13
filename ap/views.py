@@ -8,7 +8,7 @@ import operator
 import xlrd
 from xlwt import Workbook
 from rest_framework import generics
-from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from ap.serializers import APTypeSerializer, APSerializer
@@ -32,9 +32,8 @@ class APList(generics.ListCreateAPIView):
     """
     AP列表视图，包括创建和过滤功能
     """
-    queryset = AP.objects.all().order_by('apIndex')
+    queryset = AP.objects.all()
     serializer_class = APSerializer
-    filter_backends = (DjangoFilterBackend,)
     filter_fields = ('apname', 'basemac',)
 
     def perform_create(self, serializer):

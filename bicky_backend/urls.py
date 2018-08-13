@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('ap.urls')),
     path('', include('notice.urls')),
     path('', include('common.urls')),
+    path('', include('system.urls')),
 ]
